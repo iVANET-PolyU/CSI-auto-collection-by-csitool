@@ -1,0 +1,8 @@
+#! /usr/bin/expect
+set prefix "/home/debian/"  # Absolute path of the folder "linux-80211n-csitool-supplementary"
+set passwd "debian"     # root password
+set time_stp [lindex $argv 0]
+spawn timeout -s SIGINT 5s ${prefix}linux-80211n-csitool-supplementary/netlink/log_to_file /home/debian/Desktop/data_files/$time_stp          # set the time which you want to collect after "timeout"
+expect { 
+"*password*" {send "$passwd\n"}
+}

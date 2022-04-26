@@ -1,0 +1,13 @@
+#! /usr/bin/expect
+set timeout -1
+set user "username"     # the user name of the device to which you want to transfer the csi files
+set move_files_cur [lindex $argv 0]
+set passwd "password"   # the password of the user
+set add "ip addr"       # the ip address of the device
+spawn bash -c "scp /home/debian/Desktop/data_files/${move_files_cur} $user@$add:/home/josyl/data_collected/" # the first path is the path where csi file generated; the second path is the path you want to transfer to 
+expect {
+"*connecting*" {send "yes\n"}
+"*password:" { send "$passwd\r"}
+}
+expect "100%" {send_user "file sent done! `date`\n"}
+expect eof
